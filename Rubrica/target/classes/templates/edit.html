@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modifica Contatto</title>
+   <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <h1>Modifica il contatto</h1>
+
+    <form action="/update" method="post">
+        <!-- Contatto Vecchio -->
+        <input type="hidden" name="oldName" th:value="${contact.name}" />
+        <input type="hidden" name="oldPhone" th:value="${contact.phone}" />
+        <input type="hidden" name="oldEmail" th:value="${contact.email}"  />
+
+        <!-- Contatto Nuovo -->
+        <div class="form-group">
+            <label for="newName">Nuovo Nome:</label>
+            <input type="text" id="newName" name="newName" th:value="${contact.name}" required />
+        </div>
+        <div class="form-group">
+            <label for="newPhone">Nuovo Telefono:</label>
+            <input type="text" id="newPhone" name="newPhone" th:value="${contact.phone}" required />
+        </div>
+        <div class="form-group">
+            <label for="newEmail">Nuova Email:</label>
+            <input type="email" id="newEmail" name="newEmail" th:value="${contact.email}" required />
+        </div>
+
+        <button type="submit" class="button">Aggiorna</button>
+    </form>
+</body>
+</html>

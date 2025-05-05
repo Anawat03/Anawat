@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rubrica</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <h1>Rubrica dei Contatti</h1>
+
+    <h2>Aggiungi un nuovo contatto</h2>
+    <form action="/add" method="post">
+        <div class="form-group">
+            <label for="name">Nome:</label>
+            <input type="text" id="name" name="name" required />
+        </div>
+        <div class="form-group">
+            <label for="phone">Telefono:</label>
+            <input type="text" id="phone" name="phone" required />
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required />
+        </div>
+        <button type="submit" class="button">Aggiungi</button>
+    </form>
+
+    <h2>Lista dei contatti</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Telefono</th>
+                <th>Email</th>
+                <th>Operazioni</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="contact : ${contacts}">
+                <td th:text="${contact.name}"></td>
+                <td th:text="${contact.phone}"></td>
+                <td th:text="${contact.email}"></td>
+                <td>
+                    <!-- Modifica contatto -->
+                    <a th:href="@{/edit/{name}/{phone}/{email}(name=${contact.name}, phone=${contact.phone}, email=${contact.email})}">Modifica</a>
+
+                    <!-- Elimina contatto -->
+                    <form action="/delete" method="post" style="display:inline;">
+                        <input type="hidden" name="name" th:value="${contact.name}" />
+                        <input type="hidden" name="phone" th:value="${contact.phone}" />
+                        <input type="hidden" name="email" th:value="${contact.email}" />
+                        <button type="submit" class="button">Elimina</button>
+                    </form>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
